@@ -1,0 +1,84 @@
+{
+  "allergens": [
+    {
+      "name": "Susu",
+      "examples": ["Protein susu", "Kasein", "Whey", "Keju", "Mentega", "Yogurt"]
+    },
+    {
+      "name": "Telur",
+      "examples": ["Putih telur (albumin)", "Kuning telur"]
+    },
+    {
+      "name": "Kacang-Kacangan",
+      "examples": ["Almond", "Hazelnut", "Walnut", "Pistachio", "Pecan", "Cashew"]
+    },
+    {
+      "name": "Kacang Tanah",
+      "examples": ["Kacang tanah", "Minyak kacang"]
+    },
+    {
+      "name": "Ikan",
+      "examples": ["Salmon", "Tuna", "Cod", "Saus ikan"]
+    },
+    {
+      "name": "Kerang-Kerangan",
+      "examples": ["Udang", "Lobster", "Kepiting", "Kerang", "Tiram", "Cumi-cumi"]
+    },
+    {
+      "name": "Gandum",
+      "examples": ["Gluten", "Produk gandum (roti, pasta, kue)"]
+    },
+    {
+      "name": "Kedelai",
+      "examples": ["Tahu", "Tempe", "Kecap", "Susu kedelai"]
+    },
+    {
+      "name": "Seledri",
+      "examples": ["Daun seledri", "Batang seledri", "Akar seledri (celeriac)"]
+    },
+    {
+      "name": "Mustard",
+      "examples": ["Biji mustard", "Mustard dressing"]
+    },
+    {
+      "name": "Wijen",
+      "examples": ["Biji wijen", "Minyak wijen"]
+    },
+    {
+      "name": "Sulfita",
+      "examples": ["Sulfur dioksida", "Pengawet dalam buah kering", "Anggur"]
+    },
+    {
+      "name": "Lupin",
+      "examples": ["Produk bebas gluten", "Tepung lupin"]
+    },
+    {
+      "name": "Moluska",
+      "examples": ["Kerang", "Tiram", "Cumi-cumi"]
+    },
+    {
+      "name": "Jagung",
+      "examples": ["Sirup jagung", "Pati jagung", "Produk turunan jagung"]
+    },
+    {
+      "name": "Daging Tertentu",
+      "examples": ["Sapi", "Babi", "Ayam"]
+    },
+    {
+      "name": "Buah-Buahan Tertentu",
+      "examples": ["Apel", "Kiwi", "Pisang", "Persik"]
+    },
+    {
+      "name": "Sayuran Tertentu",
+      "examples": ["Tomat", "Kentang", "Paprika"]
+    },
+    {
+      "name": "Pewarna Makanan",
+      "examples": ["Tartrazin (E102)", "Carmine (E120)"]
+    },
+    {
+      "name": "Pengawet dan Bahan Tambahan",
+      "examples": ["MSG", "Benzoat", "Nitrat", "Nitrit"]
+    }
+  ]
+}
