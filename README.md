@@ -1,2 +1,2 @@
-# allergify
+# Allergify
 for capstone
