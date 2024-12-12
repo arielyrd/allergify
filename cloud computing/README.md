@@ -193,6 +193,166 @@ The following middleware is used to verify the JWT token for protected routes:
 
 ---
 
+---
+
+## Authentication
+Currently, no authentication mechanisms (e.g., tokens) are required to access the API endpoints. Future versions may introduce secure authentication.
+
+---
+
+## Endpoints
+
+### User Authentication
+**Base Path**: `/userLogin`
+
+- _Routes for user login and authentication are defined in the `userAuth` module. This section will be updated as features are implemented._
+
+---
+
+### User Tracking
+**Base Path**: `/trackingUser`
+
+#### Add Allergen
+**Endpoint**: `POST /trackingUser/allergens`
+
+- **Description**: Add a new allergen to the database.
+- **Request Body**:
+  ```json
+  {
+    "name": "string (required)"
+  }
+  ```
+- **Responses**:
+  - **201 Created**:
+    ```json
+    {
+      "message": "Allergen added successfully",
+      "data": {
+        "id": "string",
+        "name": "string",
+        "insertedAt": "ISO8601 timestamp",
+        "updatedAt": "ISO8601 timestamp"
+      }
+    }
+    ```
+  - **400 Bad Request**:
+    ```json
+    {
+      "message": "Invalid allergen name! Please enter a valid allergen name."
+    }
+    ```
+  - **400 Bad Request**:
+    ```json
+    {
+      "message": "Allergen already added"
+    }
+    ```
+
+#### Get All Allergens
+**Endpoint**: `GET /trackingUser/allergens`
+
+- **Description**: Fetch all allergens from the database with optional filtering by name.
+- **Query Parameters**:
+  - `name` (optional): Filter allergens containing the specified name.
+- **Responses**:
+  - **200 OK**:
+    ```json
+    {
+      "message": "Allergens fetched successfully",
+      "data": [
+        {
+          "id": "string",
+          "name": "string",
+          "insertedAt": "ISO8601 timestamp",
+          "updatedAt": "ISO8601 timestamp"
+        }
+      ]
+    }
+    ```
+  - **404 Not Found**:
+    ```json
+    {
+      "message": "No allergens found",
+      "data": []
+    }
+    ```
+
+#### Edit Allergen
+**Endpoint**: `PUT /trackingUser/allergens/:id`
+
+- **Description**: Update an allergen's name by its ID.
+- **Path Parameters**:
+  - `id` (required): The unique identifier of the allergen.
+- **Request Body**:
+  ```json
+  {
+    "name": "string (required)"
+  }
+  ```
+- **Responses**:
+  - **200 OK**:
+    ```json
+    {
+      "message": "Allergen updated successfully",
+      "data": {
+        "id": "string",
+        "name": "string"
+      }
+    }
+    ```
+  - **400 Bad Request**:
+    ```json
+    {
+      "message": "Invalid allergen name! Please enter a valid allergen name."
+    }
+    ```
+  - **404 Not Found**:
+    ```json
+    {
+      "message": "Allergen not found"
+    }
+    ```
+  - **400 Bad Request**:
+    ```json
+    {
+      "message": "Allergen name already exists"
+    }
+    ```
+
+#### Delete Allergen
+**Endpoint**: `DELETE /trackingUser/allergens/:id`
+
+- **Description**: Delete an allergen by its ID.
+- **Path Parameters**:
+  - `id` (required): The unique identifier of the allergen.
+- **Responses**:
+  - **200 OK**:
+    ```json
+    {
+      "message": "Allergen deleted successfully",
+      "data": {
+        "id": "string",
+        "name": "string",
+        "insertedAt": "ISO8601 timestamp",
+        "updatedAt": "ISO8601 timestamp"
+      }
+    }
+    ```
+  - **404 Not Found**:
+    ```json
+    {
+      "message": "Allergen not found"
+    }
+    ```
+
+---
+
+
+## Changelog
+- **v1.0.0**: Initial release of the Allergify API documentation.
+
+For further assistance, please contact the development team.
+
 This documentation is ready to be added to your GitHub repository. If you need further formatting or customization, let me know!
 
 
