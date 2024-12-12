@@ -5,11 +5,12 @@
    - **URL**: `/signup`
    - **Method**: `POST`
    - **Request Body**:
+   - 
     ```json
-{
-  "email": "string",
-  "password": "string"
-} 
+  {
+    "email": "string",
+    "password": "string"
+  } 
   **Response (Success):** 
   **Status Code:201**
   * **Body:**
@@ -35,4 +36,3 @@
   }
 
 
-2. ehhe
