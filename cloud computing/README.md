@@ -1,70 +1,72 @@
 # API Documentation
 
-This documentation provides detailed information about the user authentication API. The endpoints allow users to register, log in, log out, and retrieve their profile information.
-
-
+## Base URL
+```
+http://<your-server-domain>/
+```
 
 ---
 
 ## Endpoints
 
-### 1. Register User
-**URL**: `/signup`  
-**Method**: `POST`  
-**Description**: Registers a new user.  
+### 1. **Register**
+Registers a new user.
 
-**Request Body**:
+#### **Endpoint**
+```
+POST /auth/register
+```
+
+#### **Request Body**
 ```json
 {
+  "username": "string",
   "email": "string",
   "password": "string"
 }
 ```
 
-**Response (Success)**:
-- **Status Code**: `201`
-- **Body**:
+#### **Response**
+
+##### **Success Response (201)**
 ```json
 {
   "message": "User registered successfully",
   "user": {
     "id": "string",
-    "email": "string",
-    "password": "string",
-    "createdAt": "string"
+    "username": "string",
+    "email": "string"
   }
 }
 ```
 
-**Response (Failure)**:
-- **Status Code**: `400` (If email or password is missing, or email is already registered)
+##### **Error Responses**
+
+- **400 Bad Request**
 ```json
 {
-  "message": "Email and password are required"
-}
-```
-```json
-{
-  "message": "Email is already registered"
+  "error": "Invalid input"
 }
 ```
 
-- **Status Code**: `500` (On server error)
+- **500 Internal Server Error**
 ```json
 {
-  "message": "Failed to register user",
-  "error": "string"
+  "error": "An error occurred"
 }
 ```
 
 ---
 
-### 2. Login User
-**URL**: `/login`  
-**Method**: `POST`  
-**Description**: Logs in an existing user and generates a JWT token.  
+### 2. **Login**
+Authenticates a user and returns a token.
 
-**Request Body**:
+#### **Endpoint**
+```
+POST /auth/login
+```
+
+#### **Request Body**
 ```json
 {
   "email": "string",
@@ -72,9 +74,9 @@ This documentation provides detailed information about the user authentication A
 }
 ```
 
-**Response (Success)**:
-- **Status Code**: `200`
-- **Body**:
+#### **Response**
+
+##### **Success Response (200)**
 ```json
 {
   "message": "Login successful",
@@ -82,278 +84,368 @@ This documentation provides detailed information about the user authentication A
 }
 ```
 
-**Response (Failure)**:
-- **Status Code**: `400` (If email or password is missing)
+##### **Error Responses**
+
+- **401 Unauthorized**
 ```json
 {
-  "message": "Email and password are required"
+  "error": "Invalid credentials"
 }
 ```
 
-- **Status Code**: `401` (If email or password is invalid)
+- **500 Internal Server Error**
 ```json
 {
-  "message": "Invalid email or password"
-}
-```
-
-- **Status Code**: `500` (On server error)
-```json
-{
-  "message": "Failed to log in",
-  "error": "string"
+  "error": "An error occurred"
 }
 ```
 
 ---
 
-### 3. Logout User
-**URL**: `/logout`  
-**Method**: `POST`  
-**Description**: Logs out the currently logged-in user. Requires a valid token.  
+### 3. **Logout**
+Logs out the user by invalidating the token.
 
-**Headers**:
-- `Authorization`: `Bearer <token>`
+#### **Endpoint**
+```
+POST /auth/logout
+```
 
-**Response (Success)**:
-- **Status Code**: `200`
-- **Body**:
+#### **Response**
+
+##### **Success Response (200)**
 ```json
 {
-  "message": "Logout successful",
-  "user": {
+  "message": "Logout successful"
+}
+```
+
+##### **Error Responses**
+
+- **500 Internal Server Error**
+```json
+{
+  "error": "An error occurred"
+}
+```
+
+---
+
+### 4. **Get Profile**
+Fetches the profile of the logged-in user.
+
+#### **Endpoint**
+```
+GET /auth/profile
+```
+
+#### **Response**
+
+##### **Success Response (200)**
+```json
+{
+  "id": "string",
+  "username": "string",
+  "email": "string"
+}
+```
+
+##### **Error Responses**
+
+- **401 Unauthorized**
+```json
+{
+  "error": "Unauthorized"
+}
+```
+
+- **500 Internal Server Error**
+```json
+{
+  "error": "An error occurred"
+}
+```
+
+---
+
+### 5. **Add Allergen**
+Adds a new allergen to the user’s profile.
+
+#### **Endpoint**
+```
+POST /allergens
+```
+
+#### **Request Body**
+```json
+{
+  "name": "string"
+}
+```
+
+#### **Response**
+
+##### **Success Response (201)**
+```json
+{
+  "message": "Allergen added successfully",
+  "allergen": {
     "id": "string",
-    "email": "string"
+    "name": "string"
   }
 }
 ```
 
-**Response (Failure)**:
-- **Status Code**: `401` (If token is not provided)
+##### **Error Responses**
+
+- **400 Bad Request**
 ```json
 {
-  "message": "Access denied. No token provided."
+  "error": "Invalid input"
 }
 ```
 
-- **Status Code**: `403` (If token is invalid or expired)
+- **500 Internal Server Error**
 ```json
 {
-  "message": "Invalid or expired token"
+  "error": "An error occurred"
 }
 ```
 
 ---
 
-### 4. Get User Profile
-**URL**: `/profile`  
-**Method**: `GET`  
-**Description**: Retrieves the profile information of the currently logged-in user. Requires a valid token.  
+### 6. **Get All Allergens**
+Fetches all allergens associated with the user.
 
-**Headers**:
-- `Authorization`: `Bearer <token>`
+#### **Endpoint**
+```
+GET /allergens
+```
 
-**Response (Success)**:
-- **Status Code**: `200`
-- **Body**:
+#### **Response**
+
+##### **Success Response (200)**
 ```json
 {
-  "message": "User profile",
-  "user": {
+  "allergens": [
+    {
+      "id": "string",
+      "name": "string"
+    }
+  ]
+}
+```
+
+##### **Error Responses**
+
+- **500 Internal Server Error**
+```json
+{
+  "error": "An error occurred"
+}
+```
+
+---
+
+### 7. **Edit Allergen**
+Edits an existing allergen.
+
+#### **Endpoint**
+```
+PUT /allergens/:id
+```
+
+#### **Path Parameters**
+| Parameter | Type   | Description           |
+|-----------|--------|-----------------------|
+| `id`      | string | The ID of the allergen. |
+
+#### **Request Body**
+```json
+{
+  "name": "string"
+}
+```
+
+#### **Response**
+
+##### **Success Response (200)**
+```json
+{
+  "message": "Allergen updated successfully",
+  "allergen": {
     "id": "string",
-    "email": "string"
+    "name": "string"
   }
 }
 ```
 
-**Response (Failure)**:
-- **Status Code**: `401` (If token is not provided)
+##### **Error Responses**
+
+- **404 Not Found**
 ```json
 {
-  "message": "Access denied. No token provided."
+  "error": "Allergen not found"
 }
 ```
 
-- **Status Code**: `403` (If token is invalid or expired)
+- **500 Internal Server Error**
 ```json
 {
-  "message": "Invalid or expired token"
+  "error": "An error occurred"
 }
 ```
 
 ---
 
-## Middleware
+### 8. **Delete Allergen**
+Deletes an allergen from the user’s profile.
 
-### Token Verification
-The following middleware is used to verify the JWT token for protected routes:
+#### **Endpoint**
+```
+DELETE /allergens/:id
+```
 
-- If the token is valid, the request proceeds.
-- If the token is invalid or missing, appropriate error responses are sent.
+#### **Path Parameters**
+| Parameter | Type   | Description           |
+|-----------|--------|-----------------------|
+| `id`      | string | The ID of the allergen. |
+
+#### **Response**
+
+##### **Success Response (200)**
+```json
+{
+  "message": "Allergen deleted successfully"
+}
+```
+
+##### **Error Responses**
+
+- **404 Not Found**
+```json
+{
+  "error": "Allergen not found"
+}
+```
+
+- **500 Internal Server Error**
+```json
+{
+  "error": "An error occurred"
+}
+```
 
 ---
 
+### 9. **Get Product by ID**
+Fetches details of a product by its ID.
+
+#### **Endpoint**
+```
+GET /products/:product_id
+```
+
+#### **Path Parameters**
+| Parameter     | Type   | Description                |
+|---------------|--------|----------------------------|
+| `product_id`  | string | The ID of the product.     |
+
+#### **Response**
+
+##### **Success Response (200)**
+```json
+{
+  "product_id": "string",
+  "name": "string",
+  "composition": "string",
+  "nutrition": {
+    "calories": "number",
+    "fat": "number",
+    "carbohydrates": "number",
+    "protein": "number",
+    "sugar": "number",
+    "salt": "number"
+  },
+  "allergens": ["string"]
+}
+```
+
+##### **Error Responses**
+
+- **404 Not Found**
+```json
+{
+  "error": "Product not found"
+}
+```
+
+- **500 Internal Server Error**
+```json
+{
+  "error": "An error occurred"
+}
+```
+
 ---
 
-## Authentication
-Currently, no authentication mechanisms (e.g., tokens) are required to access the API endpoints. Future versions may introduce secure authentication.
+### 10. **Create Product**
+Creates a new product in the database.
 
----
+#### **Endpoint**
+```
+POST /products
+```
 
-## Endpoints
+#### **Request Body**
+```json
+{
+  "product_id": "string",
+  "name": "string",
+  "composition": "string",
+  "nutrition": {
+    "calories": "number",
+    "fat": "number",
+    "carbohydrates": "number",
+    "protein": "number",
+    "sugar": "number",
+    "salt": "number"
+  },
+  "allergens": ["string"]
+}
+```
 
-### User Authentication
-**Base Path**: `/userLogin`
+#### **Response**
 
-- _Routes for user login and authentication are defined in the `userAuth` module. This section will be updated as features are implemented._
-
----
-
-### User Tracking
-**Base Path**: `/trackingUser`
-
-#### Add Allergen
-**Endpoint**: `POST /trackingUser/allergens`
-
-- **Description**: Add a new allergen to the database.
-- **Request Body**:
-  ```json
-  {
-    "name": "string (required)"
+##### **Success Response (201)**
+```json
+{
+  "message": "Product created successfully",
+  "product": {
+    "product_id": "string",
+    "name": "string",
+    "composition": "string",
+    "nutrition": {
+      "calories": "number",
+      "fat": "number",
+      "carbohydrates": "number",
+      "protein": "number",
+      "sugar": "number",
+      "salt": "number"
+    },
+    "allergens": ["string"]
   }
-  ```
-- **Responses**:
-  - **201 Created**:
-    ```json
-    {
-      "message": "Allergen added successfully",
-      "data": {
-        "id": "string",
-        "name": "string",
-        "insertedAt": "ISO8601 timestamp",
-        "updatedAt": "ISO8601 timestamp"
-      }
-    }
-    ```
-  - **400 Bad Request**:
-    ```json
-    {
-      "message": "Invalid allergen name! Please enter a valid allergen name."
-    }
-    ```
-  - **400 Bad Request**:
-    ```json
-    {
-      "message": "Allergen already added"
-    }
-    ```
+}
+```
 
-#### Get All Allergens
-**Endpoint**: `GET /trackingUser/allergens`
+##### **Error Responses**
 
-- **Description**: Fetch all allergens from the database with optional filtering by name.
-- **Query Parameters**:
-  - `name` (optional): Filter allergens containing the specified name.
-- **Responses**:
-  - **200 OK**:
-    ```json
-    {
-      "message": "Allergens fetched successfully",
-      "data": [
-        {
-          "id": "string",
-          "name": "string",
-          "insertedAt": "ISO8601 timestamp",
-          "updatedAt": "ISO8601 timestamp"
-        }
-      ]
-    }
-    ```
-  - **404 Not Found**:
-    ```json
-    {
-      "message": "No allergens found",
-      "data": []
-    }
-    ```
-
-#### Edit Allergen
-**Endpoint**: `PUT /trackingUser/allergens/:id`
-
-- **Description**: Update an allergen's name by its ID.
-- **Path Parameters**:
-  - `id` (required): The unique identifier of the allergen.
-- **Request Body**:
-  ```json
-  {
-    "name": "string (required)"
-  }
-  ```
-- **Responses**:
-  - **200 OK**:
-    ```json
-    {
-      "message": "Allergen updated successfully",
-      "data": {
-        "id": "string",
-        "name": "string"
-      }
-    }
-    ```
-  - **400 Bad Request**:
-    ```json
-    {
-      "message": "Invalid allergen name! Please enter a valid allergen name."
-    }
-    ```
-  - **404 Not Found**:
-    ```json
-    {
-      "message": "Allergen not found"
-    }
-    ```
-  - **400 Bad Request**:
-    ```json
-    {
-      "message": "Allergen name already exists"
-    }
-    ```
-
-#### Delete Allergen
-**Endpoint**: `DELETE /trackingUser/allergens/:id`
-
-- **Description**: Delete an allergen by its ID.
-- **Path Parameters**:
-  - `id` (required): The unique identifier of the allergen.
-- **Responses**:
-  - **200 OK**:
-    ```json
-    {
-      "message": "Allergen deleted successfully",
-      "data": {
-        "id": "string",
-        "name": "string",
-        "insertedAt": "ISO8601 timestamp",
-        "updatedAt": "ISO8601 timestamp"
-      }
-    }
-    ```
-  - **404 Not Found**:
-    ```json
-    {
-      "message": "Allergen not found"
-    }
-    ```
+- **500 Internal Server Error**
+```json
+{
+  "error": "Failed to create product",
+  "details": "string"
+}
+```
 
 ---
-
-
-## Changelog
-- **v1.0.0**: Initial release of the Allergify API documentation.
-
-For further assistance, please contact the development team.
-
-This documentation is ready to be added to your GitHub repository. If you need further formatting or customization, let me know!
-
-
 
