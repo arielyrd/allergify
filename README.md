@@ -20,6 +20,15 @@ Food allergies can be a hidden danger in everyday meals, especially for those wi
 * Send images to the cloud for predictions: after preparing the image, users can click the process button to send it and detect allergens.
 
 
+* Dependencies used (Android Studio):
+* Camera x for implementation decting image
+* Hilt and ksp for dependency Injection
+* Retrofit for api implementation
+* Room database for local storage
+* Google Material 3 Theme for the layout
+* Navigation Fragment for navigating layout
+
+
 
 # Machine Learning
 Here is the link:
